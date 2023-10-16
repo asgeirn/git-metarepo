@@ -14,9 +14,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: 3.8
       - name: Linting
@@ -34,9 +34,9 @@ jobs:
     runs-on: ${{ matrix.os }}-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -47,7 +47,7 @@ jobs:
           poetry config virtualenvs.in-project true
 
       - name: Set up cache
-        uses: actions/cache@v1.2.0
+        uses: actions/cache@v3
         with:
           path: .venv
           key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
@@ -55,11 +55,8 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
-      - name: Flak
-        run: poetry run flake8
-
       - name: Test with pytest
         run: poetry run pytest tests
-        
+
       - name: Build package
         run: poetry build
