@@ -35,7 +35,7 @@ class Repository(pydantic.BaseModel):
 class Manifest(pydantic.BaseModel):
     """Manifest data"""
 
-    repos: pydantic.conlist(Repository, min_items=1)
+    repos: pydantic.conlist(Repository, min_length=1)
 
     def get_repos(self) -> List[Repository]:
         return self.repos
@@ -70,7 +70,7 @@ def save_manifest(manifest: Manifest, path: Union[Path, str]):
             dumper = yaml.SafeDumper(fp)
             dumper.add_multi_representer(Path, path_representer)
             dumper.open()
-            dumper.represent(manifest.dict(exclude_unset=True))
+            dumper.represent(manifest.model_dump(exclude_unset=True))
             dumper.close()
         finally:
             dumper.dispose()
