@@ -29,7 +29,7 @@ jobs:
     strategy:
       matrix:
         os: [Ubuntu, MacOS, Windows]
-        python-version: ["3.8", "3.9", "3.10"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
     name: ${{ matrix.os }} / ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}-latest
 
@@ -54,5 +54,12 @@ jobs:
 
       - name: Install dependencies
         run: poetry install
+
+      - name: Flak
+        run: poetry run flake8
+
       - name: Test with pytest
         run: poetry run pytest tests
+        
+      - name: Build package
+        run: poetry build
