@@ -31,7 +31,7 @@ gitpython = "^3.1.29"
 pyyaml = "^6.0.0"
 click = "^8.0.0"
 colorama = "^0.4.3"
-prompt-toolkit = "==3.0.7"
+prompt-toolkit = "==3.0.47"
 pydantic = ">=1.6.2,<3.0.0"
 
 [tool.poetry.dev-dependencies]
